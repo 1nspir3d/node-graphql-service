@@ -8,14 +8,18 @@ type User {
 
 type Query {
   user(id: ID!): User
-  jwt(email: String!, password: String!): String
+  jwt(email: String!, password: String!): JwtData
+}
+
+type JwtData {
+  jwt: String
 }
 
 type Mutation {
   register(
     email: String!
-    firstName: String
-    lastName: String
-    password: String
+    password: String!
+    firstName: String!
+    lastName: String!
   ): User
 }

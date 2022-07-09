@@ -31,7 +31,7 @@ export interface IQuery {
     track(id: string): Nullable<Track> | Promise<Nullable<Track>>;
     tracks(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Track>[]> | Promise<Nullable<Nullable<Track>[]>>;
     user(id: string): Nullable<User> | Promise<Nullable<User>>;
-    jwt(email: string, password: string): Nullable<string> | Promise<Nullable<string>>;
+    jwt(email: string, password: string): Nullable<JwtData> | Promise<Nullable<JwtData>>;
 }
 
 export interface IMutation {
@@ -54,7 +54,7 @@ export interface IMutation {
     createTrack(title: string, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
     deleteTrack(id: string): Nullable<Track> | Promise<Nullable<Track>>;
     updateTrack(id: string, title: string, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
-    register(email: string, firstName?: Nullable<string>, lastName?: Nullable<string>, password?: Nullable<string>): Nullable<User> | Promise<Nullable<User>>;
+    register(email: string, password: string, firstName: string, lastName: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface Artist {
@@ -120,6 +120,10 @@ export interface User {
     lastName?: Nullable<string>;
     password?: Nullable<string>;
     email: string;
+}
+
+export interface JwtData {
+    jwt?: Nullable<string>;
 }
 
 type Nullable<T> = T | null;
