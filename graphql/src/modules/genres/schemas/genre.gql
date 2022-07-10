@@ -25,7 +25,7 @@ type Query {
 
 type Mutation {
   createGenre(
-    name: String
+    name: String!
     description: String
     country: String
     year: Int

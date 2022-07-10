@@ -31,7 +31,7 @@ export interface IQuery {
     artist(id: string): Nullable<Artist> | Promise<Nullable<Artist>>;
     artists(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Artist>[]> | Promise<Nullable<Nullable<Artist>[]>>;
     band(id: string): Nullable<Band> | Promise<Nullable<Band>>;
-    bands(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Band>[]> | Promise<Nullable<Nullable<Band>[]>>;
+    bands(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<PaginatedResponseBands> | Promise<Nullable<PaginatedResponseBands>>;
     favourites(): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     genre(id: string): Nullable<Genre> | Promise<Nullable<Genre>>;
     genres(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<PaginatedResponseGenres> | Promise<Nullable<PaginatedResponseGenres>>;
@@ -48,14 +48,14 @@ export interface IMutation {
     createArtist(firstName?: Nullable<string>, secondName?: Nullable<string>, middleName?: Nullable<string>, birthDate?: Nullable<string>, birthPlace?: Nullable<string>, country?: Nullable<string>, bandsIds?: Nullable<Nullable<string>[]>, instruments?: Nullable<Nullable<string>[]>): Nullable<Artist> | Promise<Nullable<Artist>>;
     deleteArtist(id: string): Nullable<Artist> | Promise<Nullable<Artist>>;
     updateArtist(id: string, firstName?: Nullable<string>, secondName?: Nullable<string>, middleName?: Nullable<string>, birthDate?: Nullable<string>, birthPlace?: Nullable<string>, country?: Nullable<string>, bandsIds?: Nullable<Nullable<string>[]>, instruments?: Nullable<Nullable<string>[]>): Nullable<Artist> | Promise<Nullable<Artist>>;
-    createBand(name?: Nullable<string>, origin?: Nullable<string>, membersIds?: Nullable<Nullable<string>[]>, website?: Nullable<string>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Band> | Promise<Nullable<Band>>;
-    deleteBand(id: string): Nullable<Band> | Promise<Nullable<Band>>;
+    createBand(name: string, origin?: Nullable<string>, membersIds?: Nullable<Nullable<string>[]>, website?: Nullable<string>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Band> | Promise<Nullable<Band>>;
+    deleteBand(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateBand(id: string, name?: Nullable<string>, origin?: Nullable<string>, membersIds?: Nullable<Nullable<string>[]>, website?: Nullable<string>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Band> | Promise<Nullable<Band>>;
     addTrackToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     addBandToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     addArtistToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     addGenreToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
-    createGenre(name?: Nullable<string>, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
+    createGenre(name: string, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
     deleteGenre(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateGenre(id: string, name?: Nullable<string>, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
     createTrack(title: string, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
@@ -91,6 +91,13 @@ export interface Band {
     members?: Nullable<Nullable<Member>[]>;
     website?: Nullable<string>;
     genres?: Nullable<Nullable<Genre>[]>;
+}
+
+export interface PaginatedResponseBands {
+    items?: Nullable<Nullable<Band>[]>;
+    offset?: Nullable<number>;
+    limit?: Nullable<number>;
+    total?: Nullable<number>;
 }
 
 export interface Favourites {
