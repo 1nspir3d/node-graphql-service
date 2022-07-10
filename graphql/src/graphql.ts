@@ -57,10 +57,10 @@ export interface IMutation {
     createBand(name: string, origin?: Nullable<string>, members?: Nullable<Nullable<MemberInput>[]>, website?: Nullable<string>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Band> | Promise<Nullable<Band>>;
     deleteBand(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateBand(id: string, name?: Nullable<string>, origin?: Nullable<string>, members?: Nullable<Nullable<MemberInput>[]>, website?: Nullable<string>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Band> | Promise<Nullable<Band>>;
-    addTrackToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
-    addBandToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
-    addArtistToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
-    addGenreToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
+    addTrackToFavourites(id: string): Nullable<FavoritesResponse> | Promise<Nullable<FavoritesResponse>>;
+    addBandToFavourites(id: string): Nullable<FavoritesResponse> | Promise<Nullable<FavoritesResponse>>;
+    addArtistToFavourites(id: string): Nullable<FavoritesResponse> | Promise<Nullable<FavoritesResponse>>;
+    addGenreToFavourites(id: string): Nullable<FavoritesResponse> | Promise<Nullable<FavoritesResponse>>;
     createGenre(name: string, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
     deleteGenre(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateGenre(id: string, name?: Nullable<string>, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
@@ -119,6 +119,14 @@ export interface Favourites {
     genres?: Nullable<Nullable<Genre>[]>;
     artists?: Nullable<Nullable<Artist>[]>;
     tracks?: Nullable<Nullable<Track>[]>;
+}
+
+export interface FavoritesResponse {
+    userId?: Nullable<string>;
+    bandsIds?: Nullable<Nullable<string>[]>;
+    genresIds?: Nullable<Nullable<string>[]>;
+    artistsIds?: Nullable<Nullable<string>[]>;
+    tracksIds?: Nullable<Nullable<string>[]>;
 }
 
 export interface Genre {
