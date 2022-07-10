@@ -4,10 +4,10 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { UsersModule } from './modules/users/users.module';
 import { Request } from 'express';
+import { GenresModule } from './modules/genres/genres.module';
 
 @Module({
   imports: [
-    UsersModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: ['./**/*.gql'],
@@ -20,6 +20,8 @@ import { Request } from 'express';
         };
       },
     }),
+    UsersModule,
+    GenresModule,
   ],
 })
 export class AppModule {}

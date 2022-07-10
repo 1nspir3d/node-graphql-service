@@ -18,16 +18,23 @@ export interface Album {
     image?: Nullable<string>;
 }
 
+export interface PaginatedResponseAlbums {
+    items?: Nullable<Nullable<Album>[]>;
+    offset?: Nullable<number>;
+    limit?: Nullable<number>;
+    total?: Nullable<number>;
+}
+
 export interface IQuery {
     album(id: string): Nullable<Album> | Promise<Nullable<Album>>;
-    albums(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Album>[]> | Promise<Nullable<Nullable<Album>[]>>;
+    albums(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<PaginatedResponseAlbums> | Promise<Nullable<PaginatedResponseAlbums>>;
     artist(id: string): Nullable<Artist> | Promise<Nullable<Artist>>;
     artists(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Artist>[]> | Promise<Nullable<Nullable<Artist>[]>>;
     band(id: string): Nullable<Band> | Promise<Nullable<Band>>;
     bands(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Band>[]> | Promise<Nullable<Nullable<Band>[]>>;
     favourites(): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     genre(id: string): Nullable<Genre> | Promise<Nullable<Genre>>;
-    genres(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Genre>[]> | Promise<Nullable<Nullable<Genre>[]>>;
+    genres(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<PaginatedResponseGenres> | Promise<Nullable<PaginatedResponseGenres>>;
     track(id: string): Nullable<Track> | Promise<Nullable<Track>>;
     tracks(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Track>[]> | Promise<Nullable<Nullable<Track>[]>>;
     user(id: string): Nullable<User> | Promise<Nullable<User>>;
@@ -49,7 +56,7 @@ export interface IMutation {
     addArtistToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     addGenreToFavourites(id: string): Nullable<Favourites> | Promise<Nullable<Favourites>>;
     createGenre(name?: Nullable<string>, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
-    deleteGenre(id: string): Nullable<Genre> | Promise<Nullable<Genre>>;
+    deleteGenre(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateGenre(id: string, name?: Nullable<string>, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
     createTrack(title: string, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
     deleteTrack(id: string): Nullable<Track> | Promise<Nullable<Track>>;
@@ -101,6 +108,18 @@ export interface Genre {
     description?: Nullable<string>;
     country?: Nullable<string>;
     year?: Nullable<number>;
+}
+
+export interface DeleteResponse {
+    acknowledged?: Nullable<string>;
+    deletedCount?: Nullable<number>;
+}
+
+export interface PaginatedResponseGenres {
+    items?: Nullable<Nullable<Genre>[]>;
+    offset?: Nullable<number>;
+    limit?: Nullable<number>;
+    total?: Nullable<number>;
 }
 
 export interface Track {
