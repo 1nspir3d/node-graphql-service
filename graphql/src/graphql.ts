@@ -42,16 +42,16 @@ export interface IQuery {
     genre(id: string): Nullable<Genre> | Promise<Nullable<Genre>>;
     genres(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<PaginatedResponseGenres> | Promise<Nullable<PaginatedResponseGenres>>;
     track(id: string): Nullable<Track> | Promise<Nullable<Track>>;
-    tracks(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Track>[]> | Promise<Nullable<Nullable<Track>[]>>;
+    tracks(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<PaginatedResponseTracks> | Promise<Nullable<PaginatedResponseTracks>>;
     user(id: string): Nullable<User> | Promise<Nullable<User>>;
     jwt(email: string, password: string): Nullable<JwtData> | Promise<Nullable<JwtData>>;
 }
 
 export interface IMutation {
-    createAlbum(name?: Nullable<string>, released?: Nullable<number>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, tracksIds?: Nullable<Nullable<string>[]>, genresIds?: Nullable<Nullable<string>[]>, image?: Nullable<string>): Nullable<Album> | Promise<Nullable<Album>>;
-    deleteAlbum(id: string): Nullable<Album> | Promise<Nullable<Album>>;
-    updateAlbum(id: string, name?: Nullable<string>, released?: Nullable<number>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, tracksIds?: Nullable<Nullable<string>[]>, genresIds?: Nullable<Nullable<string>[]>, image?: Nullable<string>): Nullable<Album> | Promise<Nullable<Album>>;
-    createArtist(firstName: string, secondName: string, middleName?: Nullable<string>, birthDate?: Nullable<string>, birthPlace?: Nullable<string>, country?: Nullable<string>, bandsIds?: Nullable<Nullable<string>[]>, instruments?: Nullable<Nullable<string>[]>): Nullable<Artist> | Promise<Nullable<Artist>>;
+    createAlbum(name: string, released?: Nullable<number>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, trackIds?: Nullable<Nullable<string>[]>, genresIds?: Nullable<Nullable<string>[]>, image?: Nullable<string>): Nullable<Album> | Promise<Nullable<Album>>;
+    deleteAlbum(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
+    updateAlbum(id: string, name?: Nullable<string>, released?: Nullable<number>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, trackIds?: Nullable<Nullable<string>[]>, genresIds?: Nullable<Nullable<string>[]>, image?: Nullable<string>): Nullable<Album> | Promise<Nullable<Album>>;
+    createArtist(firstName: string, secondName: string, country: string, middleName?: Nullable<string>, birthDate?: Nullable<string>, birthPlace?: Nullable<string>, bandsIds?: Nullable<Nullable<string>[]>, instruments?: Nullable<Nullable<string>[]>): Nullable<Artist> | Promise<Nullable<Artist>>;
     deleteArtist(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateArtist(id: string, firstName?: Nullable<string>, secondName?: Nullable<string>, middleName?: Nullable<string>, birthDate?: Nullable<string>, birthPlace?: Nullable<string>, country?: Nullable<string>, bandsIds?: Nullable<Nullable<string>[]>, instruments?: Nullable<Nullable<string>[]>): Nullable<Artist> | Promise<Nullable<Artist>>;
     createBand(name: string, origin?: Nullable<string>, members?: Nullable<Nullable<MemberInput>[]>, website?: Nullable<string>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Band> | Promise<Nullable<Band>>;
@@ -65,8 +65,8 @@ export interface IMutation {
     deleteGenre(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
     updateGenre(id: string, name?: Nullable<string>, description?: Nullable<string>, country?: Nullable<string>, year?: Nullable<number>): Nullable<Genre> | Promise<Nullable<Genre>>;
     createTrack(title: string, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
-    deleteTrack(id: string): Nullable<Track> | Promise<Nullable<Track>>;
-    updateTrack(id: string, title: string, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
+    deleteTrack(id: string): Nullable<DeleteResponse> | Promise<Nullable<DeleteResponse>>;
+    updateTrack(id: string, title?: Nullable<string>, albumId?: Nullable<string>, artistsIds?: Nullable<Nullable<string>[]>, bandsIds?: Nullable<Nullable<string>[]>, duration?: Nullable<number>, released?: Nullable<number>, genresIds?: Nullable<Nullable<string>[]>): Nullable<Track> | Promise<Nullable<Track>>;
     register(email: string, password: string, firstName: string, lastName: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
@@ -150,6 +150,13 @@ export interface Track {
     duration?: Nullable<number>;
     released?: Nullable<number>;
     genres?: Nullable<Nullable<Genre>[]>;
+}
+
+export interface PaginatedResponseTracks {
+    items?: Nullable<Nullable<Track>[]>;
+    offset?: Nullable<number>;
+    limit?: Nullable<number>;
+    total?: Nullable<number>;
 }
 
 export interface User {

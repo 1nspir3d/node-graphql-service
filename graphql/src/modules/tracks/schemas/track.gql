@@ -9,9 +9,16 @@ type Track {
   genres: [Genre]
 }
 
+type PaginatedResponseTracks {
+  items: [Track]
+  offset: Int
+  limit: Int
+  total: Int
+}
+
 type Query {
   track(id: ID!): Track
-  tracks(limit: Int, offset: Int): [Track]
+  tracks(limit: Int, offset: Int): PaginatedResponseTracks
 }
 
 type Mutation {
@@ -25,11 +32,11 @@ type Mutation {
     genresIds: [ID]
   ): Track
 
-  deleteTrack(id: ID!): Track
+  deleteTrack(id: ID!): DeleteResponse
 
   updateTrack(
     id: ID!
-    title: String!
+    title: String
     albumId: ID
     artistsIds: [ID]
     bandsIds: [ID]

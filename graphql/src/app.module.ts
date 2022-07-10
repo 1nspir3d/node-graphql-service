@@ -7,6 +7,8 @@ import { Request } from 'express';
 import { GenresModule } from './modules/genres/genres.module';
 import { BandsModule } from './modules/bands/bands.module';
 import { ArtistsModule } from './modules/artists/artists.module';
+import { TracksModule } from './modules/tracks/tracks.module';
+import { AlbumsModule } from './modules/albmus/albums.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { ArtistsModule } from './modules/artists/artists.module';
     GenresModule,
     BandsModule,
     ArtistsModule,
+    TracksModule,
+    AlbumsModule,
   ],
 })
 export class AppModule {}
