@@ -12,7 +12,8 @@ export class UsersService {
   }
 
   async getUser(id: string): Promise<User> {
-    return (await this.client.get(`/${id}`)).data;
+    const user = (await this.client.get(`/${id}`)).data;
+    return { ...user, id: user?._id };
   }
 
   async login(loginDTO): Promise<{ jwt: string }> {
