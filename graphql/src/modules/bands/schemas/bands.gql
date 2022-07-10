@@ -1,7 +1,6 @@
 type Member {
   id: ID!
-  firstName: String
-  lastName: String
+  artist: Artist
   instrument: String
   years: [String]
 }
@@ -15,27 +14,40 @@ type Band {
   genres: [Genre]
 }
 
+type PaginatedResponseBands {
+  items: [Band]
+  offset: Int
+  limit: Int
+  total: Int
+}
+
 type Query {
   band(id: ID!): Band
-  bands(limit: Int, offset: Int): [Band]
+  bands(limit: Int, offset: Int): PaginatedResponseBands
+}
+
+input MemberInput {
+  id: ID!
+  instrument: String
+  year: String
 }
 
 type Mutation {
   createBand(
-    name: String
+    name: String!
     origin: String
-    membersIds: [ID]
+    members: [MemberInput]
     website: String
     genresIds: [ID]
   ): Band
 
-  deleteBand(id: ID!): Band
+  deleteBand(id: ID!): DeleteResponse
 
   updateBand(
     id: ID!
     name: String
     origin: String
-    membersIds: [ID]
+    members: [MemberInput]
     website: String
     genresIds: [ID]
   ): Band

@@ -10,15 +10,22 @@ type Artist {
   instruments: [String]
 }
 
+type PaginatedResponseArtists {
+  items: [Artist]
+  offset: Int
+  limit: Int
+  total: Int
+}
+
 type Query {
   artist(id: ID!): Artist
-  artists(limit: Int, offset: Int): [Artist]
+  artists(limit: Int, offset: Int): PaginatedResponseArtists
 }
 
 type Mutation {
   createArtist(
-    firstName: String
-    secondName: String
+    firstName: String!
+    secondName: String!
     middleName: String
     birthDate: String
     birthPlace: String
@@ -27,7 +34,7 @@ type Mutation {
     instruments: [String]
   ): Artist
 
-  deleteArtist(id: ID!): Artist
+  deleteArtist(id: ID!): DeleteResponse
 
   updateArtist(
     id: ID!

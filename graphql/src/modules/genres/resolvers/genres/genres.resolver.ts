@@ -23,7 +23,6 @@ export class GenresResolver {
   @Mutation()
   async deleteGenre(@Args('id') id: string, @Context('token') token: string) {
     const hui = await this.genresService.delete(id, token);
-    console.log('hui: ', hui);
     return hui;
   }
 
