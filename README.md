@@ -56,3 +56,10 @@ docker run -dp 8080:27017 --name mongo-for-graphql
    # all services prod mode
    npm run run:all:prod
    ```
+
+## Working with endpoints which requires authorization
+
+When you successfully created a new user you can login with your credentials to recieve a JWT token.
+Right after that you need to setup ```Authorization``` header with it. To do that simple open ```HTTP Headers``` tab at GraphQL playground and set header in format which you can see in following screenshot
+![image](https://user-images.githubusercontent.com/62627903/179036056-64f42197-9c9b-4dcd-9f9c-5268efa33d1d.png)
+
