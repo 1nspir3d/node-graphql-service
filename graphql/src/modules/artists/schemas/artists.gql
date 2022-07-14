@@ -1,0 +1,50 @@
+type Artist {
+  id: ID!
+  firstName: String
+  secondName: String
+  middleName: String
+  birthDate: String
+  birthPlace: String
+  country: String
+  bands: [Band]
+  instruments: [String]
+}
+
+type PaginatedResponseArtists {
+  items: [Artist]
+  offset: Int
+  limit: Int
+  total: Int
+}
+
+type Query {
+  artist(id: ID!): Artist
+  artists(limit: Int, offset: Int): PaginatedResponseArtists
+}
+
+type Mutation {
+  createArtist(
+    firstName: String!
+    secondName: String!
+    country: String!
+    middleName: String
+    birthDate: String
+    birthPlace: String
+    bandsIds: [ID]
+    instruments: [String]
+  ): Artist
+
+  deleteArtist(id: ID!): DeleteResponse
+
+  updateArtist(
+    id: ID!
+    firstName: String
+    secondName: String
+    middleName: String
+    birthDate: String
+    birthPlace: String
+    country: String
+    bandsIds: [ID]
+    instruments: [String]
+  ): Artist
+}

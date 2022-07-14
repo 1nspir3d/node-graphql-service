@@ -1,0 +1,30 @@
+type Favourites {
+  id: ID!
+  userId: ID
+  bands: [Band]
+  genres: [Genre]
+  artists: [Artist]
+  tracks: [Track]
+}
+
+type FavoritesResponse {
+  userId: ID
+  bandsIds: [ID]
+  genresIds: [ID]
+  artistsIds: [ID]
+  tracksIds: [ID]
+}
+
+type Query {
+  favourites: Favourites
+}
+
+type Mutation {
+  addTrackToFavourites(id: ID!): FavoritesResponse
+
+  addBandToFavourites(id: ID!): FavoritesResponse
+
+  addArtistToFavourites(id: ID!): FavoritesResponse
+
+  addGenreToFavourites(id: ID!): FavoritesResponse
+}
